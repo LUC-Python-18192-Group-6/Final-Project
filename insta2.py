@@ -1,59 +1,101 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-import requests
-import urllib.request
-import urllib.parse
-import urllib.error
-from bs4 import BeautifulSoup
-import ssl
-import json
+# #!/usr/bin/python
+# # -*- coding: utf-8 -*-
+# import requests
+# import urllib.request
+# import urllib.parse
+# import urllib.error
+# from bs4 import BeautifulSoup
+# import ssl
+# import json
+#
+#
+# class Insta_Info_Scraper:
+#
+#     def getinfo(self, url):
+#         html = urllib.request.urlopen(url, context=self.ctx).read()
+#         soup = BeautifulSoup(html, 'html.parser')
+#         data = soup.find_all('meta', attrs={'property': 'og:description'
+#                              })
+#         text = data[0].get('content').split()
+#         user = '%s %s %s' % (text[-3], text[-2], text[-1])
+#         followers = text[0]
+#         following = text[2]
+#         posts = text[4]
+#         print ('User:', user)
+#         print ('Followers:', followers)
+#         print ('Following:', following)
+#         print ('Posts:', posts)
+#         print ('---------------------------')
+#
+#     def main(self):
+#         self.ctx = ssl.create_default_context()
+#         self.ctx.check_hostname = False
+#         self.ctx.verify_mode = ssl.CERT_NONE
+#
+#         with open('users.txt') as f:
+#             self.content = f.readlines()
+#         self.content = [x.strip() for x in self.content]
+#         for url in self.content:
+#             self.getinfo(url)
+#
+#
+# if __name__ == '__main__':
+#     obj = Insta_Info_Scraper()
+#     obj.main()
+#
+#
+# #!/usr/bin/python
+# # -*- coding: utf-8 -*-
+# import requests
+# import urllib.request
+# import urllib.parse
+# import urllib.error
+# from bs4 import BeautifulSoup
+# import ssl
+# import json
+#
+#
+# class Insta_Image_Links_Scraper:
+#
+#     def getlinks(self, hashtag, url):
+#
+#         html = urllib.request.urlopen(url, context=self.ctx).read()
+#         soup = BeautifulSoup(html, 'html.parser')
+#         script = soup.find('script', text=lambda t: \
+#                            t.startswith('window._sharedData'))
+#         page_json = script.text.split(' = ', 1)[1].rstrip(';')
+#         data = json.loads(page_json)
+#         print ('Scraping links with #' + hashtag+"...........")
+#         for post in data['entry_data']['TagPage'][0]['graphql'
+#                 ]['hashtag']['edge_hashtag_to_media']['edges']:
+#             image_src = post['node']['thumbnail_resources'][1]['src']
+#             hs = open(hashtag + '.txt', 'a')
+#             hs.write(image_src + '\n')
+#             hs.close()
+#
+#     def main(self):
+#         self.ctx = ssl.create_default_context()
+#         self.ctx.check_hostname = False
+#         self.ctx.verify_mode = ssl.CERT_NONE
+#
+#         with open('hashtag_list.txt') as f:
+#             self.content = f.readlines()
+#         self.content = [x.strip() for x in self.content]
+#         for hashtag in self.content:
+#             self.getlinks(hashtag,
+#                           'https://www.instagram.com/explore/tags/'
+#                           + hashtag + '/')
+#
+#
+# if __name__ == '__main__':
+#     obj = Insta_Image_Links_Scraper()
+#     obj.main()
+#
 
 
-class Insta_Info_Scraper:
+thisistheuser = "sebassert"
 
-    def getinfo(self, url):
-        html = urllib.request.urlopen(url, context=self.ctx).read()
-        soup = BeautifulSoup(html, 'html.parser')
-        data = soup.find_all('meta', attrs={'property': 'og:description'
-                             })
-        text = data[0].get('content').split()
-        user = '%s %s %s' % (text[-3], text[-2], text[-1])
-        followers = text[0]
-        following = text[2]
-        posts = text[4]
-        print ('User:', user)
-        print ('Followers:', followers)
-        print ('Following:', following)
-        print ('Posts:', posts)
-        print ('---------------------------')
-
-    def main(self):
-        self.ctx = ssl.create_default_context()
-        self.ctx.check_hostname = False
-        self.ctx.verify_mode = ssl.CERT_NONE
-
-        with open('users.txt') as f:
-            self.content = f.readlines()
-        self.content = [x.strip() for x in self.content]
-        for url in self.content:
-            self.getinfo(url)
-
-
-if __name__ == '__main__':
-    obj = Insta_Info_Scraper()
-    obj.main()
-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-import requests
-import urllib.request
-import urllib.parse
-import urllib.error
-from bs4 import BeautifulSoup
-import ssl
-import json
-
+#own try
 
 class Insta_Image_Links_Scraper:
 
@@ -78,15 +120,49 @@ class Insta_Image_Links_Scraper:
         self.ctx.check_hostname = False
         self.ctx.verify_mode = ssl.CERT_NONE
 
-        with open('hashtag_list.txt') as f:
+        with open('users.txt') as f:
             self.content = f.readlines()
         self.content = [x.strip() for x in self.content]
         for hashtag in self.content:
             self.getlinks(hashtag,
-                          'https://www.instagram.com/explore/tags/'
+                          'https://www.instagram.com/'
                           + hashtag + '/')
 
 
 if __name__ == '__main__':
     obj = Insta_Image_Links_Scraper()
     obj.main()
+
+
+
+
+class Insta_Info_Scraper:
+
+    def getinfo(self, url):
+        html = urllib.request.urlopen(url, context=self.ctx).read()
+        soup = BeautifulSoup(html, 'html.parser')
+        data = soup.find_all('meta', attrs={'property': 'og:description'
+                             })
+        text = data[0].get('content').split()
+        user = '%s %s %s' % (text[-3], text[-2], text[-1])
+        followers = text[0]
+        following = text[2]
+        posts = text[4]
+        print (text[-1])
+
+    def main(self):
+        self.ctx = ssl.create_default_context()
+        self.ctx.check_hostname = False
+        self.ctx.verify_mode = ssl.CERT_NONE
+
+        with open('users.txt') as f:
+            self.content = f.readlines()
+        self.content = [x.strip() for x in self.content]
+        for url in self.content:
+            self.getinfo(url)
+
+
+if __name__ == '__main__':
+    obj = Insta_Info_Scraper()
+    obj.main()
+
