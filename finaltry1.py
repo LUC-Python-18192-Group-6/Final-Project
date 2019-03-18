@@ -1,33 +1,34 @@
-# from google.cloud import vision
-# from google.cloud.vision import types
-#
-# client = vision.ImageAnnotatorClient()
+from google.cloud import vision
+from google.cloud.vision import types
+from google.cloud import language
+from google.cloud.language import enums
+from google.cloud.language import types
+import os
+import io
+from google.oauth2 import service_account
+
+credentials = service_account.Credentials.from_service_account_file('/Users/Tom/Python/Final-Project/pythatjemet.json')
+
+# client = vision.ImageAnnotatorClient(credentials=credentials)
 # image = vision.types.Image()
 # image.source.image_uri = 'gs://cloud-vision-codelab/eiffel_tower.jpg'
 # resp = client.landmark_detection(image=image)
 # print(resp.landmark_annotations)
 
-# def implicit():
-#     from google.cloud import storage
-#
-#     # If you don't specify credentials when constructing the client, the
-#     # client library will look for credentials in the environment.
-#     storage_client = storage.Client()
-#
-#     # Make an authenticated API request
-#     buckets = list(storage_client.list_buckets())
-#     print(buckets)
+def detect_labels(path):
+    """Detects labels in the file."""
+    client = vision.ImageAnnotatorClient(credentials=credentials)
 
-# Imports the Google Cloud client library
-from google.cloud import storage
+    with io.open(path, 'rb') as image_file:
+        content = image_file.read()
 
-# Instantiates a client
-storage_client = storage.Client()
+    image = vision.types.Image(content=content)
 
-# The name for the new bucket
-bucket_name = 'my-new-bucket'
+    response = client.label_detection(image=image)
+    labels = response.label_annotations
+    print('Labels:')
 
-# Creates the new bucket
-bucket = storage_client.create_bucket(bucket_name)
+    for label in labels:
+        print(label.description)
 
-print('Bucket {} created.'.format(bucket.name))
+detect_labels('IMG_0120.jpg')
