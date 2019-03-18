@@ -12,12 +12,13 @@ from google.oauth2 import service_account
 credentials = service_account.Credentials.from_service_account_file('/Users/Tom/Python/Final-Project/pythatjemet.json')
 
 #Defining our empty variables:
-lbs= []
 counter = 0
 
 #Defining our function that interacts with the google API
 def detect_labels(path):
     """Detects labels in the file."""
+    global lbs
+    lbs = []
     client = vision.ImageAnnotatorClient(credentials=credentials)
 
     with io.open(path, 'rb') as image_file:
@@ -29,18 +30,18 @@ def detect_labels(path):
     labels = response.label_annotations
 
     for label in labels:
-        print(label.description)
+        lbs.append(label.description)
 
 
 #Appending the received labels to our empty list
-lbs = lbs.append(detect_labels('foto.jpg'))
-#making everything lowercase in order to make sure our test lables compare
-lbs = lbs.lower()
+detect_labels('foto.jpg')
+print(lbs)
+
 #Changing it to a set, so we can do relevant operations.
-lbs=set(lbs)
+lbs = set(lbs)
 
 #Our set of test labels:
-green_labels = set(["tree","water","grass","mountain", "ocean", "river", "flower", "animal"])
+green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal"])
 
 #Our test goes as follows
 labeltest = green_labels - lbs
