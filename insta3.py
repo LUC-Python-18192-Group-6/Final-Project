@@ -10,9 +10,9 @@ InstagramAPI.getProfileData()
 result = InstagramAPI.LastJson
 print(result)
 
-print(result['status'])
+print(result['user']['profile_pic_url'])
 print(result['user']['full_name'])
 
-InstagramAPI.timelineFeed()
+print(InstagramAPI.timelineFeed())
 
-InstagramAPI.getSelfUsernameInfo()
+print(InstagramAPI.getSelfUsernameInfo())
