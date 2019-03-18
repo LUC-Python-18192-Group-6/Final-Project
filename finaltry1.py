@@ -1,3 +1,4 @@
+#Importing libraries
 from google.cloud import vision
 from google.cloud.vision import types
 from google.cloud import language
@@ -7,14 +8,14 @@ import os
 import io
 from google.oauth2 import service_account
 
+#Inputting our credentials for the google API
 credentials = service_account.Credentials.from_service_account_file('/Users/Tom/Python/Final-Project/pythatjemet.json')
 
-# client = vision.ImageAnnotatorClient(credentials=credentials)
-# image = vision.types.Image()
-# image.source.image_uri = 'gs://cloud-vision-codelab/eiffel_tower.jpg'
-# resp = client.landmark_detection(image=image)
-# print(resp.landmark_annotations)
+#Defining our empty variables:
+lbs= []
+counter = 0
 
+#Defining our function that interacts with the google API
 def detect_labels(path):
     """Detects labels in the file."""
     client = vision.ImageAnnotatorClient(credentials=credentials)
@@ -30,8 +31,25 @@ def detect_labels(path):
     for label in labels:
         print(label.description)
 
-lbs= []
+
+#Appending the received labels to our empty list
 lbs = lbs.append(detect_labels('foto.jpg'))
+#making everything lowercase in order to make sure our test lables compare
+lbs = lbs.lower()
+#Changing it to a set, so we can do relevant operations.
+lbs=set(lbs)
 
-print(lbs)
+#Our set of test labels:
+green_labels = set(["tree","water","grass","mountain", "ocean", "river", "flower", "animal"])
 
+#Our test goes as follows
+labeltest = green_labels - lbs
+
+
+if len(labeltest) != len(green_labels):
+    counter += 1
+
+# score = (counter / len(image_list))*100
+
+
+print(counter)
