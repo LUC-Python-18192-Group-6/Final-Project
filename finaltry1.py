@@ -26,9 +26,12 @@ def detect_labels(path):
 
     response = client.label_detection(image=image)
     labels = response.label_annotations
-    print('Labels:')
 
     for label in labels:
         print(label.description)
 
-detect_labels('IMG_2299.jpg')
+lbs= []
+lbs = lbs.append(detect_labels('foto.jpg'))
+
+print(lbs)
+
