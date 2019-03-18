@@ -31,4 +31,4 @@ def detect_labels(path):
     for label in labels:
         print(label.description)
 
-detect_labels('IMG_0120.jpg')
+detect_labels('IMG_2299.jpg')
