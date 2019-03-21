@@ -137,5 +137,6 @@ for i in urls:
         counter += 1
 
 score = (counter/len(urls))*100
-
+scoreprct = "{}%".format(score)
+print(printscoreprct)
 #TURTLE TIMEEEEE
