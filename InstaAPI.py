@@ -2,14 +2,17 @@ from random import choice
 import json
 import requests
 from bs4 import BeautifulSoup
+from google.cloud import vision
+from google.oauth2 import service_account
 
 #User agents, important to make it seem as if we are accessing instagram through a browser
 USER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36']
 #Make an empty url list
 urls = []
 labels = []
+green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal"])
 
-print("Welcome to the Instagram")
+print("Welcome to the Instagram green scorer!")
 
 class InstagramScraper:
     def __init__(self, url, user_agents=None):
@@ -106,4 +109,37 @@ def urlcreation():
 #Then we run this function, which tries to obtain the list of urls. When we get an error (AKA the account doesnt exist, it will try again) if we dont, a variable named urls will be created.
 urlcreation()
 
-print(urls)
+#Inputting our credentials for the google API
+credentials = service_account.Credentials.from_service_account_file('/Users/Tom/Python/Final-Project/pythatjemet.json')
+
+#Defining our empty variables:
+counter = 0
+
+#Defining our function that interacts with the google API
+def detect_labels(uri):
+    """Detects labels in the file."""
+    global lbs
+    lbs = []
+    client = vision.ImageAnnotatorClient(credentials=credentials)
+
+    image = vision.types.Image()
+    image.source.image_uri = uri
+
+    response = client.label_detection(image=image)
+    labels = response.label_annotations
+
+    for label in labels:
+        lbs.append(label.description)
+
+#Appending the received labels to our empty list
+for i in urls:
+    detect_labels(i)
+    lbs = set(lbs)
+    labeltest = green_labels - lbs
+    if len(labeltest) != len(green_labels):
+        counter += 1
+
+score = (counter / len(urls))*100
+
+print(score)
+
