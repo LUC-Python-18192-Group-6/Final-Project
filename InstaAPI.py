@@ -165,4 +165,3 @@ img123.show()
 print("""Thank you for using our Instagram account green scorer!
 Written by Maarten Molenaar, Tom van Zantvliet and Sebastiaan Grosscurt
 """)
-
