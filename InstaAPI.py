@@ -9,6 +9,7 @@ import pymysql.cursors
 USER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36']
 #Make an empty url list
 urls = []
+labels = []
 
 print("Welcome to the Instagram")
 
@@ -94,6 +95,8 @@ def urlmaker():
     # Fill the URL list
     for i in post_metrics:
         urls.append(i['display_url'])
+        #labels.append(i['accessibility_caption'])
+
 
 def urlcreation():
     try:
@@ -105,6 +108,4 @@ def urlcreation():
 #Then we run this function, which tries to obtain the list of urls. When we get an error (AKA the account doesnt exist, it will try again) if we dont, a variable named urls will be created.
 urlcreation()
 
-
 print(urls)
-
