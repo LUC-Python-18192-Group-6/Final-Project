@@ -5,8 +5,15 @@ from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
 import os
+from io import BytesIO
+import base64
+import urllib
 import io
+import requests
+import shutil
+from PIL import Image
 from google.oauth2 import service_account
+import public
 
 #Inputting our credentials for the google API
 credentials = service_account.Credentials.from_service_account_file('/Users/Tom/Python/Final-Project/pythatjemet.json')
@@ -15,16 +22,14 @@ credentials = service_account.Credentials.from_service_account_file('/Users/Tom/
 counter = 0
 
 #Defining our function that interacts with the google API
-def detect_labels(path):
+def detect_labels(uri):
     """Detects labels in the file."""
     global lbs
     lbs = []
     client = vision.ImageAnnotatorClient(credentials=credentials)
 
-    with io.open(path, 'rb') as image_file:
-        content = image_file.read()
-
-    image = vision.types.Image(content=content)
+    image = vision.types.Image()
+    image.source.image_uri = uri
 
     response = client.label_detection(image=image)
     labels = response.label_annotations
@@ -34,7 +39,7 @@ def detect_labels(path):
 
 
 #Appending the received labels to our empty list
-detect_labels('foto.jpg')
+detect_labels("https://scontent-amt2-1.cdninstagram.com/vp/a6bc2bb26acd3ebd4c108b10d913aeb6/5D1F6A47/t51.2885-15/e35/12093572_1558187451158171_1674724162_n.jpg?_nc_ht=scontent-amt2-1.cdninstagram.com")
 print(lbs)
 
 #Changing it to a set, so we can do relevant operations.
