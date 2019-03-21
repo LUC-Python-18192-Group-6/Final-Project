@@ -16,7 +16,7 @@ urls = []
 labels = []
 green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor", "Beach", "Fruit", "Leaf", "Leaves"])
 
-print("Welcome to the Instagram green scorer!")
+print("Welcome to the Instagram account green score program! With this application you can check how green your favourite public account is!")
 
 class InstagramScraper:
     def __init__(self, url, user_agents=None):
@@ -137,6 +137,6 @@ for i in urls:
         counter += 1
 
 score = int((counter/len(urls))*100)
-scoreprct = "Your 'green score' is {}%".format(score)
+scoreprct = "The 'green score' of @{} is {}%!".format(instausername,score)
 print(scoreprct)
 #TURTLE TIMEEEEE
