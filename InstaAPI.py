@@ -4,13 +4,14 @@ import requests
 from bs4 import BeautifulSoup
 from google.cloud import vision
 from google.oauth2 import service_account
+import turtle
 
 #User agents, important to make it seem as if we are accessing instagram through a browser
 USER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36']
 #Make an empty url list
 urls = []
 labels = []
-green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal"])
+green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor"])
 
 print("Welcome to the Instagram green scorer!")
 
@@ -139,7 +140,6 @@ for i in urls:
     if len(labeltest) != len(green_labels):
         counter += 1
 
-score = (counter / len(urls))*100
+score = (counter/len(urls))*100
 
 print(score)
-
