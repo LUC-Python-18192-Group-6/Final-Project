@@ -14,7 +14,7 @@ credentials = service_account.Credentials.from_service_account_file('/Users/Tom/
 counter = 0
 urls = []
 labels = []
-green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor"])
+green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor", "Beach", "Fruit"])
 
 print("Welcome to the Instagram green scorer!")
 
@@ -136,7 +136,7 @@ for i in urls:
     if len(labeltest) != len(green_labels):
         counter += 1
 
-score = (counter/len(urls))*10
+score = (counter/len(urls))*100
 scoreprct = "{}%".format(score)
 print(printscoreprct)
 #TURTLE TIMEEEEE
