@@ -1,9 +1,11 @@
 from random import choice
+from PIL import Image
 import json
 import requests
 from bs4 import BeautifulSoup
 from google.cloud import vision
 from google.oauth2 import service_account
+from io import BytesIO
 import turtle
 
 #User agents, important to make it seem as if we are accessing instagram through a browser
@@ -14,6 +16,7 @@ credentials = service_account.Credentials.from_service_account_file('pythatjemet
 counter = 0
 urls = []
 labels = []
+greenpics = []
 green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor", "Beach", "Fruit", "Leaf", "Leaves"])
 
 print("Welcome to the Instagram account green score program! With this application you can check how green your favourite public account is!")
@@ -135,8 +138,15 @@ for i in urls:
     labeltest = green_labels - lbs
     if len(labeltest) != len(green_labels):
         counter += 1
+        greenpics.append(i)
 
 score = int((counter/len(urls))*100)
 scoreprct = "The 'green score' of @{} is {}%!".format(instausername,score)
 print(scoreprct)
+print(greenpics)
+
+resp123 = requests.get(greenpics[0])
+img123 = Image.open(BytesIO(resp123.content))
+
 #TURTLE TIMEEEEE
+
