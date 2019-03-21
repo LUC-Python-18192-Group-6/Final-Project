@@ -1,10 +1,8 @@
 from random import choice
-from datetime import datetime
 import json
 import requests
 from bs4 import BeautifulSoup
-import pymysql
-import pymysql.cursors
+
 #User agents, important to make it seem as if we are accessing instagram through a browser
 USER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36']
 #Make an empty url list
