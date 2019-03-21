@@ -8,7 +8,10 @@ import turtle
 
 #User agents, important to make it seem as if we are accessing instagram through a browser
 USER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36']
-#Make an empty url list
+#Inputting our credentials for the google API
+credentials = service_account.Credentials.from_service_account_file('/Users/Tom/Python/Final-Project/pythatjemet.json')
+#Make an empty url lists and variables
+counter = 0
 urls = []
 labels = []
 green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor"])
@@ -99,22 +102,12 @@ def urlmaker():
         urls.append(i['display_url'])
         #labels.append(i['accessibility_caption'])
 
-
 def urlcreation():
     try:
         urlmaker()
     except:
         print("This account does not exist, try again!")
         urlcreation()
-
-#Then we run this function, which tries to obtain the list of urls. When we get an error (AKA the account doesnt exist, it will try again) if we dont, a variable named urls will be created.
-urlcreation()
-
-#Inputting our credentials for the google API
-credentials = service_account.Credentials.from_service_account_file('/Users/Tom/Python/Final-Project/pythatjemet.json')
-
-#Defining our empty variables:
-counter = 0
 
 #Defining our function that interacts with the google API
 def detect_labels(uri):
@@ -132,6 +125,9 @@ def detect_labels(uri):
     for label in labels:
         lbs.append(label.description)
 
+#Then we run this function, which tries to obtain the list of urls. When we get an error (AKA the account doesnt exist, it will try again) if we dont, a variable named urls will be created.
+urlcreation()
+
 #Determining the 'green score' of the tested account
 for i in urls:
     detect_labels(i)
@@ -142,4 +138,4 @@ for i in urls:
 
 score = (counter/len(urls))*100
 
-print(score)
+#TURTLE TIMEEEEE
