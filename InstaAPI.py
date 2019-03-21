@@ -9,7 +9,7 @@ import turtle
 #User agents, important to make it seem as if we are accessing instagram through a browser
 USER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36']
 #Inputting our credentials for the google API
-credentials = service_account.Credentials.from_service_account_file('/Users/Tom/Python/Final-Project/pythatjemet.json')
+credentials = service_account.Credentials.from_service_account_file('pythatjemet.json')
 #Make an empty url lists and variables
 counter = 0
 urls = []
