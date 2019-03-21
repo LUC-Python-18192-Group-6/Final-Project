@@ -14,8 +14,7 @@ credentials = service_account.Credentials.from_service_account_file('pythatjemet
 counter = 0
 urls = []
 labels = []
-greenpics = []
-green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor", "Beach", "Fruit"])
+green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor", "Beach", "Fruit", "Leaf", "Leaves"])
 
 print("Welcome to the Instagram green scorer!")
 
@@ -136,10 +135,8 @@ for i in urls:
     labeltest = green_labels - lbs
     if len(labeltest) != len(green_labels):
         counter += 1
-        greenpics.append(i)
 
 score = int((counter/len(urls))*100)
 scoreprct = "Your 'green score' is {}%".format(score)
 print(scoreprct)
-print(greenpics)
 #TURTLE TIMEEEEE
