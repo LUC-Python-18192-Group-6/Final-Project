@@ -127,6 +127,7 @@ def detect_labels(uri):
 
     for label in labels:
         lbs.append(label.description)
+    print(lbs)
 
 #Then we run this function, which tries to obtain the list of urls. When we get an error (AKA the account doesnt exist, it will try again) if we dont, a variable named urls will be created.
 urlcreation()
@@ -161,6 +162,8 @@ draw.text((wx - 1, hy + 1), scoreprct, font=font123, fill=shadowcolor, align='ce
 draw.text((wx + 1, hy + 1), scoreprct, font=font123, fill=shadowcolor, align='center')
 draw.multiline_text((wx, hy), scoreprct, (255, 255, 255), font=font123, align='center')
 img123.show()
+
+
 
 print("""Thank you for using our Instagram account green scorer!
 Written by Maarten Molenaar, Tom van Zantvliet and Sebastiaan Grosscurt
