@@ -137,6 +137,6 @@ for i in urls:
         counter += 1
 
 score = (counter/len(urls))*100
-scoreprct = "{}%".format(score)
-print(printscoreprct)
+scoreprct = "Your 'green score' is {}%".format(score)
+print(scoreprct)
 #TURTLE TIMEEEEE
