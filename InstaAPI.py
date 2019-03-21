@@ -1,5 +1,5 @@
 from random import choice
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -141,12 +141,28 @@ for i in urls:
         greenpics.append(i)
 
 score = int((counter/len(urls))*100)
-scoreprct = "The 'green score' of @{} is {}%!".format(instausername,score)
-print(scoreprct)
-print(greenpics)
+scoreprct = "The 'green score' of \n@{} \nis {}%!".format(instausername,score)
 
+#Now we use the python PIL library to make a graphic about this account
+shadowcolor = "black"
+font123 = ImageFont.truetype("Phenomena-Regular.otf", 72)
 resp123 = requests.get(greenpics[0])
 img123 = Image.open(BytesIO(resp123.content))
+image_size = img123.size
+image_height = img123.size[1]
+image_width = img123.size[0]
+draw = ImageDraw.Draw(img123)
+text_size = draw.textsize(scoreprct, font=font123)
+wx = (image_width / 2) - (text_size[0] / 2)
+hy = 0.9 * image_height -((image_height/3) - (text_size[1] / 3))
+draw.text((wx - 1, hy - 1), scoreprct, font=font123, fill=shadowcolor, align='center')
+draw.text((wx + 1, hy - 1), scoreprct, font=font123, fill=shadowcolor, align='center')
+draw.text((wx - 1, hy + 1), scoreprct, font=font123, fill=shadowcolor, align='center')
+draw.text((wx + 1, hy + 1), scoreprct, font=font123, fill=shadowcolor, align='center')
+draw.multiline_text((wx, hy), scoreprct, (255, 255, 255), font=font123, align='center')
+img123.show()
 
-#TURTLE TIMEEEEE
+print("""Thank you for using our Instagram account green scorer!
+Written by Maarten Molenaar, Tom van Zantvliet and Sebastiaan Grosscurt
+""")
 
