@@ -136,7 +136,7 @@ for i in urls:
     if len(labeltest) != len(green_labels):
         counter += 1
 
-score = int(round((counter/len(urls))*100, 0))
+score = int((counter/len(urls))*100)
 scoreprct = "Your 'green score' is {}%".format(score)
 print(scoreprct)
 #TURTLE TIMEEEEE
