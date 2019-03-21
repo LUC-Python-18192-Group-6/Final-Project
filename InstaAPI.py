@@ -132,7 +132,7 @@ def detect_labels(uri):
     for label in labels:
         lbs.append(label.description)
 
-#Appending the received labels to our empty list
+#Determining the 'green score' of the tested account
 for i in urls:
     detect_labels(i)
     lbs = set(lbs)
