@@ -1,12 +1,13 @@
 from random import choice
 from PIL import Image, ImageDraw, ImageFont
+import time
 import json
 import requests
 from bs4 import BeautifulSoup
 from google.cloud import vision
 from google.oauth2 import service_account
 from io import BytesIO
-import turtle
+import sys
 
 #User agents, important to make it seem as if we are accessing instagram through a browser
 USER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36']
@@ -14,6 +15,7 @@ USER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KH
 credentials = service_account.Credentials.from_service_account_file('pythatjemet.json')
 #Make an empty url lists and variables
 counter = 0
+progresscounter = 0
 urls = []
 labels = []
 greenpics = []
@@ -127,7 +129,6 @@ def detect_labels(uri):
 
     for label in labels:
         lbs.append(label.description)
-    print(lbs)
 
 #Then we run this function, which tries to obtain the list of urls. When we get an error (AKA the account doesnt exist, it will try again) if we dont, a variable named urls will be created.
 urlcreation()
@@ -135,11 +136,17 @@ urlcreation()
 #Determining the 'green score' of the tested account
 for i in urls:
     detect_labels(i)
+    proglength = len(urls)
     lbs = set(lbs)
     labeltest = green_labels - lbs
     if len(labeltest) != len(green_labels):
         counter += 1
         greenpics.append(i)
+    progresscounter +=1
+    prgpercent = (progresscounter/proglength)*100
+    sys.stdout.write("\rProgress: [" + "=" * (progresscounter) + " " * ((proglength - progresscounter)) + "]" + str(int(prgpercent)) + "%")
+    sys.stdout.flush()
+    # print("Progress: {}%  ".format(int(prgpercent)))
 
 score = int((counter/len(urls))*100)
 scoreprct = "The 'green score' of \n@{} \nis {}%!".format(instausername,score)
@@ -163,8 +170,6 @@ draw.text((wx + 1, hy + 1), scoreprct, font=font123, fill=shadowcolor, align='ce
 draw.multiline_text((wx, hy), scoreprct, (255, 255, 255), font=font123, align='center')
 img123.show()
 
-
-
-print("""Thank you for using our Instagram account green scorer!
+print("""\nThank you for using our Instagram account green scorer!
 Written by Maarten Molenaar, Tom van Zantvliet and Sebastiaan Grosscurt
 """)
