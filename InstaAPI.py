@@ -19,7 +19,7 @@ progresscounter = 0
 urls = []
 labels = []
 greenpics = []
-green_labels = set(["Tree","Water","Grass","Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor", "Beach", "Fruit", "Leaf", "Leaves"])
+green_labels = set(["Tree","Water","Grass", "Green", "Green space", "Mountain", "Ocean", "River", "Flower", "Animal", "Water sport", "Water transportation", "Nature", "Outdoors", "Outdoor", "Beach", "Fruit", "Leaf", "Leaves", "Squirrel"])
 
 print("Welcome to the Instagram account green score program! With this application you can check how green your favourite public account is!")
 
